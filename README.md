@@ -1,6 +1,6 @@
 # pytest-httpretty - A thin wrapper of HTTPretty for pytest
 
-pytest-httpretty provides `httpretty` marker and `stub_get()` shorthand function.
+pytest-httpretty provides `httpretty` marker, fixture and `stub_get()` shorthand function.
 
 ```python
 import httpretty
@@ -21,4 +21,9 @@ def test_stub_get():
     stub_get('http://example.com/', body='World!')
 
     assert requests.get('http://example.com').text == 'World!'
+
+
+@pytest.fixture
+def dummy(httpretty):
+    httpretty.register_uri(httpretty.GET, 'http://example.com/', body='Hello')
 ```
